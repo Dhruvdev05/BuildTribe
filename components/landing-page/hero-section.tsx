@@ -1,20 +1,21 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import StatsCard from "./stats-card";
 import {
   ArrowRightIcon,
   EyeIcon,
   RocketIcon,
   SparklesIcon,
   UsersIcon,
-} from "lucide-react";
-import Link from "next/link";
+} from "lucide-react"
 
 const LiveBadge = () => {
   return (
     <Badge
       variant="outline"
-      className="px-5 py-3.5 mb-8 text-sm backdrop-blur-sm"
+      className="px-4 py-2 mb-8 text-sm backdrop-blur-sm"
     >
       <span className="relative flex h-2 w-2">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
@@ -26,6 +27,25 @@ const LiveBadge = () => {
     </Badge>
   );
 };
+
+const statsData = [
+  {
+    icon: RocketIcon,
+    value: "2.5K+",
+    label: "Projects Shared",
+  },
+  {
+    icon: UsersIcon,
+    value: "10K+",
+    label: "Active Creators",
+    hasBorder: true,
+  },
+  {
+    icon: EyeIcon,
+    value: "50K+",
+    label: "Monthly Visitors",
+  },
+];
 
 const HeroSection = () => {
   return (
@@ -60,6 +80,11 @@ const HeroSection = () => {
             </Button>
           </div>
 
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 max-w-2xl w-full">
+            {statsData.map((stat) => (
+              <StatsCard key={stat.label} {...stat} />
+            ))}
+          </div>
    
    </div>
    </div>

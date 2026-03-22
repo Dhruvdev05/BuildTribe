@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BuildTribe",
+  title: "BuildTribe-share your Creations, connect with builders",
   description: "BuildTribe is a community of builders and makers who are passionate about building and sharing their projects. We believe in the power of collaboration and learning from each other. Join us to share your projects, get feedback, and connect with other builders.",
 };
 
