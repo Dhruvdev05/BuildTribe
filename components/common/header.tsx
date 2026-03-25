@@ -1,71 +1,72 @@
+"use client";
+
 import Link from "next/link"
-import { SparklesIcon , HomeIcon , CompassIcon,UserIcon } from "lucide-react"
+import { SparklesIcon, HomeIcon, CompassIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-const Logo = () => {
-    return (
-<Link href="/" className="flex items-center gap-2 group">
-    <div className="size-8 rounded-lg bg-primary flex items-center justify-center">
-        <SparklesIcon className="size-4 text-primary-foreground" />
-     
-    </div>
-      <span className="text-xl font-bold">
-        <span className="text-primary">Build</span>Tribe
-      </span>
-    </Link>
-    )
-}
-
+import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
 
 export default function Header() {
-  let  isSignedIn = true;
+  const { isSignedIn } = useUser();
+
   return (
-   <header>
-        <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
       <div className="wrapper px-12">
         <div className="flex h-16 items-center justify-between">
-          <Logo />
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="size-8 rounded-lg bg-primary flex items-center justify-center">
+              <SparklesIcon className="size-4 text-white" />
+            </div>
+            <span className="text-xl font-bold">
+              <span className="text-primary">Build</span>Tribe
+            </span>
+          </Link>
+
+          {/* Nav */}
           <nav className="flex items-center gap-1">
-            <Link
-              href="/"
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted/50"
-            >
+            <Link href="/" className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted/50">
               <HomeIcon className="size-4" />
-              <span>Home</span>
+              Home
             </Link>
-            <Link
-              href="/explore"
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted/50"
-            >
+
+            <Link href="/explore" className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted/50">
               <CompassIcon className="size-4" />
-              <span>Explore</span>
+              Explore
             </Link>
           </nav>
+
+          {/* Auth Section */}
           <div className="flex items-center gap-3">
-          {isSignedIn ? (
-  <>
-    <Button asChild>
-      <Link href="/submit">
-        <SparklesIcon className="size-4" />
-        Submit Project
-      </Link>
-    </Button>
-    <Button variant="ghost">
-      <UserIcon className="size-4" />
-    </Button>
-  </>
-) : (
-  <div className="flex gap-2"> {/* Or use a Fragment <> */}
-    <Button variant="ghost">Sign In</Button>
-    <Button>Sign Up</Button>
-  </div>
-)}
+
+            {!isSignedIn ? (
+              <>
+                <SignInButton mode="modal">
+                  <Button variant="ghost">Sign In</Button>
+                </SignInButton>
+
+                <SignUpButton mode="modal">
+                  <Button className="bg-[#6c47ff] text-white rounded-full">
+                    Sign Up
+                  </Button>
+                </SignUpButton>
+              </>
+            ) : (
+              <>
+                <Link href="/submit">
+                  <Button variant="ghost" className="flex gap-2">
+                    <SparklesIcon className="size-4" />
+                    Submit Project
+                  </Button>
+                </Link>
+
+                <UserButton />
+              </>
+            )}
+
           </div>
         </div>
       </div>
     </header>
-   </header>
   )
 }
-
-

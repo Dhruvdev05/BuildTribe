@@ -1,15 +1,21 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import StatsCard from "./stats-card";
+import { Sora } from "next/font/google";
 import {
   ArrowRightIcon,
   EyeIcon,
   RocketIcon,
   SparklesIcon,
   UsersIcon,
-} from "lucide-react"
+} from "lucide-react";
+
+const sora = Sora({
+  subsets: ["latin"],
+  weight: ["700"],
+  display: "swap",
+});
 
 const LiveBadge = () => {
   return (
@@ -53,8 +59,15 @@ const HeroSection = () => {
       <div className="wrapper">
         <div className="flex flex-col items-center justify-center lg:py-24 py-12 text-center">
     <LiveBadge />
-   <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 max-w-5xl">
-            Share What You&apos;ve Built, Discover What&apos;s Launching
+   <h1 className={`${sora.className} text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 max-w-5xl`}>
+            Share What You&apos;ve{" "}
+            <span className="bg-[linear-gradient(96deg,#D74C9F_0%,#8B68C2_52%,#E35A4C_100%)] bg-clip-text text-transparent">
+              Built
+            </span>
+            , Discover What&apos;s{" "}
+            <span className="bg-[linear-gradient(96deg,#D84EA5_0%,#A55EB5_36%,#6D88CC_68%,#E15849_100%)] bg-clip-text text-transparent">
+              Launching
+            </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
             A community platform for creators to showcase their apps, AI tools,
