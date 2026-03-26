@@ -15,3 +15,14 @@ export async function getFeaturedProducts() {
 
   return productData;
 }
+
+export async function getRecentlyLaunchedProducts() {
+  const productData = await getFeaturedProducts();
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+  return productData.filter((product) => product.createdAt && 
+new Date(product.createdAt.toISOString()) >= oneWeekAgo);
+
+console.log("Recently Launched Products:", productData);
+}
