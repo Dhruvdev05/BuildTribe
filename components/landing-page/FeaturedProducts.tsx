@@ -3,30 +3,14 @@ import { ArrowUpRightIcon, Badge, StarIcon, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProductCard from "../products/product-card";
+import { getFeaturedProducts } from "@/lib/products/product-select";
 
 
 
-const featuredProducts = [
-  {
-    id: 1,
-    name: "mapssmart",
-    description: "Control your home with voice commands .",
-   tags: ["saas", "iot", "home-automation"],
-   Votes: 596,
-   isFeatured: true,
-  },
-  {
-    id: 2,
-    name: "cursor",
-    description: "Boost your coding productivity with AI suggestions.",   
-    tags: ["saas", "ai", "developer-tools"],
-    Votes: 432,
-    isFeatured: true,
-  }
-]
 
-function FeaturedProducts() {
 
+async function FeaturedProducts() {
+const featuredProducts = await getFeaturedProducts()
 
   return (
      <section className="py-20 bg-muted/20">
