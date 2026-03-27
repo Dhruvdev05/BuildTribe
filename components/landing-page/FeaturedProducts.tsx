@@ -1,5 +1,7 @@
+"use cache"
+
 import SectionHeader from "@/components/common/section-header";
-import { ArrowUpRightIcon, Badge, StarIcon, Vote } from "lucide-react";
+import { ArrowUpRightIcon, StarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProductCard from "../products/product-card";
@@ -9,7 +11,7 @@ import { getFeaturedProducts } from "@/lib/products/product-select";
 
 
 
-async function FeaturedProducts() {
+export default async function FeaturedProducts() {
 const featuredProducts = await getFeaturedProducts()
 
   return (
@@ -39,5 +41,3 @@ const featuredProducts = await getFeaturedProducts()
         </section>
   )
 }
-
-export default FeaturedProducts

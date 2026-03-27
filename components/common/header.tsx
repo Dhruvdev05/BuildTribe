@@ -1,13 +1,51 @@
 "use client";
 
-import Link from "next/link"
-import { SparklesIcon, HomeIcon, CompassIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
+import Link from "next/link";
+import { SparklesIcon, HomeIcon, CompassIcon, LoaderIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { Suspense } from "react";
 
-export default function Header() {
+function AuthSection() {
   const { isSignedIn } = useUser();
 
+  if (isSignedIn === undefined) {
+    return (
+      <div className="flex items-center gap-3">
+        <LoaderIcon className="animate-spin size-5" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      {!isSignedIn ? (
+        <>
+          <SignInButton mode="modal">
+            <Button variant="ghost">Sign In</Button>
+          </SignInButton>
+
+          <SignUpButton mode="modal">
+            <Button>Sign Up</Button>
+          </SignUpButton>
+        </>
+      ) : (
+        <>
+          <Link href="/submit">
+            <Button variant="ghost" className="flex gap-2">
+              <SparklesIcon className="size-4" />
+              Submit Project
+            </Button>
+          </Link>
+
+          <UserButton />
+        </>
+      )}
+    </div>
+  );
+}
+
+export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
       <div className="wrapper px-12">
@@ -36,37 +74,19 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Auth Section */}
-          <div className="flex items-center gap-3">
+          {/* Auth Section with Suspense */}
+          <Suspense
+            fallback={
+              <div className="flex items-center gap-3">
+                <LoaderIcon className="animate-spin size-5" />
+              </div>
+            }
+          >
+            <AuthSection />
+          </Suspense>
 
-            {!isSignedIn ? (
-              <>
-                <SignInButton mode="modal">
-                  <Button variant="ghost">Sign In</Button>
-                </SignInButton>
-
-                <SignUpButton mode="modal">
-                  <Button className="bg-[#6c47ff] text-white rounded-full">
-                    Sign Up
-                  </Button>
-                </SignUpButton>
-              </>
-            ) : (
-              <>
-                <Link href="/submit">
-                  <Button variant="ghost" className="flex gap-2">
-                    <SparklesIcon className="size-4" />
-                    Submit Project
-                  </Button>
-                </Link>
-
-                <UserButton />
-              </>
-            )}
-
-          </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
